@@ -47,6 +47,9 @@ mod list_box;
 #[cfg(feature = "datetime-picker")]
 mod date_picker;
 
+#[cfg(feature = "month-calendar")]
+mod month_calendar;
+
 #[cfg(feature = "progress-bar")]
 mod progress_bar;
 
@@ -141,6 +144,9 @@ pub use list_box::{ListBox, ListBoxFlags, ListBoxBuilder};
 
 #[cfg(feature = "datetime-picker")]
 pub use date_picker::{DatePicker, DatePickerValue, DatePickerFlags, DatePickerBuilder};
+
+#[cfg(feature = "month-calendar")]
+pub use month_calendar::{MonthCalendar, MonthCalendarBuilder, MonthCalendarFlags, MonthCalendarDate};
 
 #[cfg(feature = "progress-bar")]
 pub use progress_bar::{ProgressBar, ProgressBarState, ProgressBarFlags, ProgressBarBuilder};

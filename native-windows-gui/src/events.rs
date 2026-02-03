@@ -132,6 +132,15 @@ pub enum Event {
     /// When the value of the date select is changed
     OnDatePickerChanged,
 
+    /// When a date is selected in a month calendar
+    OnMonthCalendarSelect,
+
+    /// When the selection changes in a month calendar (including during drag)
+    OnMonthCalendarSelectionChanged,
+
+    /// When the view changes in a month calendar (month/year navigation)
+    OnMonthCalendarViewChange,
+
     /// When an item on a list box is clicked twice
     OnListBoxDoubleClick,
 
