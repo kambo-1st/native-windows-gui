@@ -266,6 +266,12 @@ pub enum Event {
 
     /// When a user clicks on the X button of a window
     OnWindowClose,
+
+    /// When a toolbar button is clicked. The button's command ID can be retrieved from the handle.
+    OnToolbarItemClick,
+
+    /// When a dropdown toolbar button's arrow is clicked
+    OnToolbarDropDown,
 }
 
 
