@@ -83,6 +83,9 @@ mod scroll_bar;
 #[cfg(feature = "plotting")]
 mod plotters;
 
+#[cfg(feature = "toolbar")]
+mod toolbar;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -177,5 +180,8 @@ pub use scroll_bar::{ScrollBar, ScrollBarBuilder, ScrollBarFlags};
 
 #[cfg(feature = "plotting")]
 pub use self::plotters::{Plotters, PlottersBuilder, PlottersDrawingArea, PlottersBackend, PlottersError};
+
+#[cfg(feature = "toolbar")]
+pub use toolbar::{Toolbar, ToolbarBuilder, ToolbarFlags, ToolbarButton, ToolbarButtonStyle};
 
 pub use handle_from_control::*;
