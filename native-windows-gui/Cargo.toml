@@ -43,6 +43,7 @@ file-dialog = []
 color-dialog = []
 font-dialog = []
 datetime-picker = []
+month-calendar = []
 progress-bar = []
 tabs = []
 tree-view = []
@@ -82,7 +83,7 @@ raw-win-handle = ["raw-window-handle"]
 all = ["file-dialog", "color-dialog", "font-dialog", "datetime-picker", "progress-bar", "timer", "notice", "list-view", "cursor", "image-decoder",
        "tabs", "tree-view", "fancy-window", "listbox", "combobox", "tray-notification", "message-window", "number-select", "clipboard", "menu",
        "trackbar", "extern-canvas", "frame", "tooltip", "status-bar", "winnls", "textbox", "rich-textbox", "image-list", "embed-resource", "scroll-bar",
-       "tree-view-iterator", "flexbox", "dynamic_layout", "animation-timer", "plotting", "toolbar"]
+       "tree-view-iterator", "flexbox", "dynamic_layout", "animation-timer", "plotting", "toolbar", "month-calendar"]
 
 [package.metadata.docs.rs]
 # This also sets the default target to `x86_64-pc-windows-msvc`
