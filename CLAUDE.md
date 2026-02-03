@@ -40,6 +40,25 @@ native-windows-gui-fork/
 ../scripts/win-cargo.sh run --example basic_d  # Run example
 ```
 
+## Git Workflow
+
+**IMPORTANT: NEVER commit directly to master!**
+
+Always create a feature branch for new work:
+
+```bash
+# Create feature branch
+git checkout -b feature/my-feature
+
+# Make changes, commit
+git add <files>
+git commit -m "Description"
+
+# Push and create PR
+git push -u origin feature/my-feature
+gh pr create --title "My Feature" --body "Description"
+```
+
 ## Architecture Overview
 
 ### Layered Design
