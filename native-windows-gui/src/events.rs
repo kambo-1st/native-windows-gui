@@ -281,6 +281,9 @@ pub enum Event {
 
     /// When a dropdown toolbar button's arrow is clicked
     OnToolbarDropDown,
+
+    /// When a hyperlink in a SysLink control is clicked. Use EventData::OnSysLinkClick to get the link info.
+    OnSysLinkClick,
 }
 
 
@@ -341,6 +344,10 @@ pub enum EventData {
     /// Row index, column index, and selected state of the list view item that raised the event
     #[cfg(feature="list-view")]
     OnListViewItemChanged { row_index: usize, column_index: usize, selected: bool },
+
+    /// Data for a SysLink click event containing the link URL and ID
+    #[cfg(feature="syslink")]
+    OnSysLinkClick { url: String, id: String },
 }
 
 impl EventData {
@@ -445,6 +452,15 @@ impl EventData {
     pub fn on_list_view_item_changed(&self) -> (usize, usize, bool) {
         match self {
             &EventData::OnListViewItemChanged { row_index, column_index, selected} => (row_index, column_index, selected),
+            d => panic!("Wrong data type: {:?}", d)
+        }
+    }
+
+    /// Unwraps event data into the SysLink click info (url, id)
+    #[cfg(feature="syslink")]
+    pub fn on_syslink_click(&self) -> (&str, &str) {
+        match self {
+            EventData::OnSysLinkClick { url, id } => (url.as_str(), id.as_str()),
             d => panic!("Wrong data type: {:?}", d)
         }
     }

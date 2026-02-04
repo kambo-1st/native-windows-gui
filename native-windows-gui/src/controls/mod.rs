@@ -92,6 +92,9 @@ mod toolbar;
 #[cfg(feature = "rebar")]
 mod rebar;
 
+#[cfg(feature = "syslink")]
+mod syslink;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -195,5 +198,8 @@ pub use toolbar::{Toolbar, ToolbarBuilder, ToolbarFlags, ToolbarButton, ToolbarB
 
 #[cfg(feature = "rebar")]
 pub use rebar::{Rebar, RebarBuilder, RebarFlags, RebarBand, RebarBandFlags};
+
+#[cfg(feature = "syslink")]
+pub use syslink::{SysLink, SysLinkBuilder, SysLinkFlags};
 
 pub use handle_from_control::*;
