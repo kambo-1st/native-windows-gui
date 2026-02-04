@@ -300,3 +300,9 @@ use super::Animation;
 
 #[cfg(feature = "animation")]
 handles!(Animation);
+
+#[cfg(feature = "combobox-ex")]
+use super::ComboBoxEx;
+
+#[cfg(feature = "combobox-ex")]
+handles!(ComboBoxEx);
