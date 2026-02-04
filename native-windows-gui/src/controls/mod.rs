@@ -95,6 +95,9 @@ mod rebar;
 #[cfg(feature = "syslink")]
 mod syslink;
 
+#[cfg(feature = "animation")]
+mod animation;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -201,5 +204,8 @@ pub use rebar::{Rebar, RebarBuilder, RebarFlags, RebarBand, RebarBandFlags};
 
 #[cfg(feature = "syslink")]
 pub use syslink::{SysLink, SysLinkBuilder, SysLinkFlags};
+
+#[cfg(feature = "animation")]
+pub use animation::{Animation, AnimationBuilder, AnimationFlags};
 
 pub use handle_from_control::*;

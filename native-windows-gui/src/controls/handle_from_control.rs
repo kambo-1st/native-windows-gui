@@ -294,3 +294,9 @@ use super::SysLink;
 
 #[cfg(feature = "syslink")]
 handles!(SysLink);
+
+#[cfg(feature = "animation")]
+use super::Animation;
+
+#[cfg(feature = "animation")]
+handles!(Animation);
