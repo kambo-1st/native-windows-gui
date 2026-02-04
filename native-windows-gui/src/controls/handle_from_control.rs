@@ -270,3 +270,21 @@ use super::Plotters;
 
 #[cfg(feature = "plotting")]
 handles!(Plotters);
+
+#[cfg(feature = "toolbar")]
+use super::Toolbar;
+
+#[cfg(feature = "toolbar")]
+handles!(Toolbar);
+
+#[cfg(feature = "rebar")]
+use super::Rebar;
+
+#[cfg(feature = "rebar")]
+handles!(Rebar);
+
+#[cfg(feature = "month-calendar")]
+use super::MonthCalendar;
+
+#[cfg(feature = "month-calendar")]
+handles!(MonthCalendar);

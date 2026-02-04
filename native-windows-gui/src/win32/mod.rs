@@ -158,7 +158,7 @@ pub fn init_common_controls() -> Result<(), NwgError> {
     use winapi::um::libloaderapi::LoadLibraryW;
     use winapi::um::commctrl::{InitCommonControlsEx, INITCOMMONCONTROLSEX};
     use winapi::um::commctrl::{ICC_BAR_CLASSES, ICC_STANDARD_CLASSES, ICC_DATE_CLASSES, ICC_PROGRESS_CLASS,
-     ICC_TAB_CLASSES, ICC_TREEVIEW_CLASSES, ICC_LISTVIEW_CLASSES};
+     ICC_TAB_CLASSES, ICC_TREEVIEW_CLASSES, ICC_LISTVIEW_CLASSES, ICC_COOL_CLASSES};
     use winapi::shared::winerror::{S_OK, S_FALSE};
 
     unsafe {
@@ -182,6 +182,10 @@ pub fn init_common_controls() -> Result<(), NwgError> {
 
         if cfg!(feature = "list-view") {
             classes |= ICC_LISTVIEW_CLASSES;
+        }
+
+        if cfg!(feature = "rebar") {
+            classes |= ICC_COOL_CLASSES;
         }
 
         if cfg!(feature = "rich-textbox") {
