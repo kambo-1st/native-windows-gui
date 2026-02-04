@@ -284,6 +284,12 @@ pub enum Event {
 
     /// When a hyperlink in a SysLink control is clicked. Use EventData::OnSysLinkClick to get the link info.
     OnSysLinkClick,
+
+    /// When an animation starts playing
+    OnAnimationStart,
+
+    /// When an animation stops playing
+    OnAnimationStop,
 }
 
 

@@ -652,6 +652,7 @@ unsafe extern "system" fn process_events(hwnd: HWND, msg: UINT, w: WPARAM, l: LP
                 "ComboBox" => callback(combo_commands(message), NO_DATA, handle),
                 "Static" => callback(static_commands(child_handle, message), NO_DATA, handle),
                 "ListBox" => callback(listbox_commands(message), NO_DATA, handle),
+                "SysAnimate32" => callback(animation_commands(message), NO_DATA, handle),
                 _ => match w as i32 {
                     IDOK | IDCANCEL => callback(no_class_name_commands(w), NO_DATA, base_handle),
                     _ => {}
@@ -1005,6 +1006,16 @@ fn syslink_data(m: u32, notif_raw: *const NMHDR) -> EventData {
 #[cfg(not(feature="syslink"))]
 fn syslink_data(_m: u32, _notif_raw: *const NMHDR) -> EventData {
     NO_DATA
+}
+
+fn animation_commands(m: u16) -> Event {
+    use winapi::um::commctrl::{ACN_START, ACN_STOP};
+
+    match m as usize {
+        ACN_START => Event::OnAnimationStart,
+        ACN_STOP => Event::OnAnimationStop,
+        _ => Event::Unknown
+    }
 }
 
 unsafe fn static_commands(handle: HWND, m: u16) -> Event {

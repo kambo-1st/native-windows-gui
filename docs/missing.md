@@ -11,7 +11,7 @@ This document tracks Win32 API controls and features not yet implemented in nati
 | Toolbar | `ToolbarWindow32` | Button bar with icons/text | ✅ Implemented |
 | Month Calendar | `SysMonthCal32` | Standalone calendar widget | ✅ Implemented |
 | Rebar | `ReBarWindow32` | Dockable toolbar container | ✅ Implemented |
-| SysLink | `SysLink` | Hyperlink control (clickable URLs) | Not started |
+| SysLink | `SysLink` | Hyperlink control (clickable URLs) | ✅ Implemented |
 
 ### Medium Priority
 
