@@ -6,12 +6,12 @@ This document tracks Win32 API controls and features not yet implemented in nati
 
 ### High Priority
 
-| Control | Win32 Class | Description |
-|---------|-------------|-------------|
-| Toolbar | `ToolbarWindow32` | Button bar with icons/text |
-| Month Calendar | `SysMonthCal32` | Standalone calendar widget |
-| Rebar | `ReBarWindow32` | Dockable toolbar container |
-| SysLink | `SysLink` | Hyperlink control (clickable URLs) |
+| Control | Win32 Class | Description | Status |
+|---------|-------------|-------------|--------|
+| Toolbar | `ToolbarWindow32` | Button bar with icons/text | ✅ Implemented |
+| Month Calendar | `SysMonthCal32` | Standalone calendar widget | ✅ Implemented |
+| Rebar | `ReBarWindow32` | Dockable toolbar container | ✅ Implemented |
+| SysLink | `SysLink` | Hyperlink control (clickable URLs) | Not started |
 
 ### Medium Priority
 

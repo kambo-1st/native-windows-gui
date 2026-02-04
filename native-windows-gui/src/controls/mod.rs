@@ -89,6 +89,9 @@ mod plotters;
 #[cfg(feature = "toolbar")]
 mod toolbar;
 
+#[cfg(feature = "rebar")]
+mod rebar;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -189,5 +192,8 @@ pub use self::plotters::{Plotters, PlottersBuilder, PlottersDrawingArea, Plotter
 
 #[cfg(feature = "toolbar")]
 pub use toolbar::{Toolbar, ToolbarBuilder, ToolbarFlags, ToolbarButton, ToolbarButtonStyle};
+
+#[cfg(feature = "rebar")]
+pub use rebar::{Rebar, RebarBuilder, RebarFlags, RebarBand, RebarBandFlags};
 
 pub use handle_from_control::*;
