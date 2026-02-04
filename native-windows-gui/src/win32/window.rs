@@ -977,6 +977,35 @@ fn list_view_data(_m: u32, _notif_raw: *const NMHDR) -> EventData {
     NO_DATA
 }
 
+fn syslink_commands(m: u32) -> Event {
+    use winapi::um::commctrl::{NM_CLICK, NM_RETURN};
+
+    match m {
+        NM_CLICK | NM_RETURN => Event::OnSysLinkClick,
+        _ => Event::Unknown
+    }
+}
+
+#[cfg(feature="syslink")]
+fn syslink_data(m: u32, notif_raw: *const NMHDR) -> EventData {
+    use winapi::um::commctrl::{NM_CLICK, NM_RETURN, NMLINK};
+    use crate::win32::base_helper::from_utf16;
+
+    match m {
+        NM_CLICK | NM_RETURN => {
+            let nmlink: &NMLINK = unsafe { &*(notif_raw as *const NMLINK) };
+            let url = from_utf16(&nmlink.item.szUrl);
+            let id = from_utf16(&nmlink.item.szID);
+            EventData::OnSysLinkClick { url, id }
+        },
+        _ => NO_DATA
+    }
+}
+
+#[cfg(not(feature="syslink"))]
+fn syslink_data(_m: u32, _notif_raw: *const NMHDR) -> EventData {
+    NO_DATA
+}
 
 unsafe fn static_commands(handle: HWND, m: u16) -> Event {
     use winapi::um::winuser::{STN_CLICKED, STN_DBLCLK, STM_GETIMAGE, IMAGE_BITMAP, IMAGE_ICON, IMAGE_CURSOR};
@@ -1039,6 +1068,7 @@ unsafe fn handle_default_notify_callback<'a>(notif_raw: *const NMHDR, callback: 
         "msctls_trackbar32" => callback(track_commands(code), NO_DATA, handle),
         winapi::um::commctrl::WC_TREEVIEW => callback(tree_commands(code), tree_data(code, notif_raw), handle),
         winapi::um::commctrl::WC_LISTVIEW => callback(list_view_commands(code), list_view_data(code, notif_raw), handle),
+        "SysLink" => callback(syslink_commands(code), syslink_data(code, notif_raw), handle),
         _ => {}
     }
 }

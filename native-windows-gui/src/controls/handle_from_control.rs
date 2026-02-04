@@ -288,3 +288,9 @@ use super::MonthCalendar;
 
 #[cfg(feature = "month-calendar")]
 handles!(MonthCalendar);
+
+#[cfg(feature = "syslink")]
+use super::SysLink;
+
+#[cfg(feature = "syslink")]
+handles!(SysLink);
