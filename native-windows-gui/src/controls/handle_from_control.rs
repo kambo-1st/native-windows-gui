@@ -312,3 +312,9 @@ use super::IpAddress;
 
 #[cfg(feature = "ip-address")]
 handles!(IpAddress);
+
+#[cfg(feature = "hot-key")]
+use super::HotKey;
+
+#[cfg(feature = "hot-key")]
+handles!(HotKey);

@@ -104,6 +104,9 @@ mod combobox_ex;
 #[cfg(feature = "ip-address")]
 mod ip_address;
 
+#[cfg(feature = "hot-key")]
+mod hot_key;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -219,5 +222,8 @@ pub use combobox_ex::{ComboBoxEx, ComboBoxExBuilder, ComboBoxExFlags, ComboBoxEx
 
 #[cfg(feature = "ip-address")]
 pub use ip_address::{IpAddress, IpAddressBuilder, IpAddressFlags};
+
+#[cfg(feature = "hot-key")]
+pub use hot_key::{HotKey, HotKeyBuilder, HotKeyFlags, HotKeyModifiers, HotKeyValue, HotKeyInvalidCombinations};
 
 pub use handle_from_control::*;

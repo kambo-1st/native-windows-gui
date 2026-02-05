@@ -293,6 +293,9 @@ pub enum Event {
 
     /// When a field in an IP address control changes
     OnIpAddressFieldChanged,
+
+    /// When the hot key value changes in a HotKey control
+    OnHotKeyChanged,
 }
 
 

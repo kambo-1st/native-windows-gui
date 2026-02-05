@@ -653,6 +653,7 @@ unsafe extern "system" fn process_events(hwnd: HWND, msg: UINT, w: WPARAM, l: LP
                 "Static" => callback(static_commands(child_handle, message), NO_DATA, handle),
                 "ListBox" => callback(listbox_commands(message), NO_DATA, handle),
                 "SysAnimate32" => callback(animation_commands(message), NO_DATA, handle),
+                "msctls_hotkey32" => callback(hotkey_commands(message), NO_DATA, handle),
                 _ => match w as i32 {
                     IDOK | IDCANCEL => callback(no_class_name_commands(w), NO_DATA, base_handle),
                     _ => {}
@@ -992,6 +993,15 @@ fn ipaddress_commands(m: u32) -> Event {
 
     match m {
         IPN_FIELDCHANGED => Event::OnIpAddressFieldChanged,
+        _ => Event::Unknown
+    }
+}
+
+fn hotkey_commands(m: u16) -> Event {
+    use winapi::um::winuser::EN_CHANGE;
+
+    match m {
+        EN_CHANGE => Event::OnHotKeyChanged,
         _ => Event::Unknown
     }
 }
