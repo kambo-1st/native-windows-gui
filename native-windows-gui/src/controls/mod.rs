@@ -98,6 +98,9 @@ mod syslink;
 #[cfg(feature = "animation")]
 mod animation;
 
+#[cfg(feature = "combobox-ex")]
+mod combobox_ex;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -207,5 +210,8 @@ pub use syslink::{SysLink, SysLinkBuilder, SysLinkFlags};
 
 #[cfg(feature = "animation")]
 pub use animation::{Animation, AnimationBuilder, AnimationFlags};
+
+#[cfg(feature = "combobox-ex")]
+pub use combobox_ex::{ComboBoxEx, ComboBoxExBuilder, ComboBoxExFlags, ComboBoxExStyleEx, ComboBoxExItem};
 
 pub use handle_from_control::*;
