@@ -101,6 +101,9 @@ mod animation;
 #[cfg(feature = "combobox-ex")]
 mod combobox_ex;
 
+#[cfg(feature = "ip-address")]
+mod ip_address;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -213,5 +216,8 @@ pub use animation::{Animation, AnimationBuilder, AnimationFlags};
 
 #[cfg(feature = "combobox-ex")]
 pub use combobox_ex::{ComboBoxEx, ComboBoxExBuilder, ComboBoxExFlags, ComboBoxExStyleEx, ComboBoxExItem};
+
+#[cfg(feature = "ip-address")]
+pub use ip_address::{IpAddress, IpAddressBuilder, IpAddressFlags};
 
 pub use handle_from_control::*;
