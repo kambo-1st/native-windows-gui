@@ -211,7 +211,7 @@ impl HotKey {
             handle,
             HKM_SETRULES,
             invalid.bits(),
-            ((replacement.bits() as LPARAM) << 16)
+            (replacement.bits() as LPARAM) << 16
         );
     }
 

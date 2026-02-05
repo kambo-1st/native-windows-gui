@@ -1006,6 +1006,15 @@ fn hotkey_commands(m: u16) -> Event {
     }
 }
 
+fn pager_commands(m: u32) -> Event {
+    use winapi::um::commctrl::PGN_SCROLL;
+
+    match m {
+        PGN_SCROLL => Event::OnPagerScroll,
+        _ => Event::Unknown
+    }
+}
+
 #[cfg(feature="syslink")]
 fn syslink_data(m: u32, notif_raw: *const NMHDR) -> EventData {
     use winapi::um::commctrl::{NM_CLICK, NM_RETURN, NMLINK};
@@ -1100,6 +1109,7 @@ unsafe fn handle_default_notify_callback<'a>(notif_raw: *const NMHDR, callback: 
         winapi::um::commctrl::WC_LISTVIEW => callback(list_view_commands(code), list_view_data(code, notif_raw), handle),
         "SysLink" => callback(syslink_commands(code), syslink_data(code, notif_raw), handle),
         "SysIPAddress32" => callback(ipaddress_commands(code), NO_DATA, handle),
+        "SysPager" => callback(pager_commands(code), NO_DATA, handle),
         _ => {}
     }
 }
