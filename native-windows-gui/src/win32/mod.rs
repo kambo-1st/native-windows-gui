@@ -158,7 +158,7 @@ pub fn init_common_controls() -> Result<(), NwgError> {
     use winapi::um::libloaderapi::LoadLibraryW;
     use winapi::um::commctrl::{InitCommonControlsEx, INITCOMMONCONTROLSEX};
     use winapi::um::commctrl::{ICC_BAR_CLASSES, ICC_STANDARD_CLASSES, ICC_DATE_CLASSES, ICC_PROGRESS_CLASS,
-     ICC_TAB_CLASSES, ICC_TREEVIEW_CLASSES, ICC_LISTVIEW_CLASSES, ICC_COOL_CLASSES, ICC_LINK_CLASS, ICC_ANIMATE_CLASS, ICC_USEREX_CLASSES};
+     ICC_TAB_CLASSES, ICC_TREEVIEW_CLASSES, ICC_LISTVIEW_CLASSES, ICC_COOL_CLASSES, ICC_LINK_CLASS, ICC_ANIMATE_CLASS, ICC_USEREX_CLASSES, ICC_HOTKEY_CLASS};
     use winapi::shared::winerror::{S_OK, S_FALSE};
 
     unsafe {
@@ -198,6 +198,10 @@ pub fn init_common_controls() -> Result<(), NwgError> {
 
         if cfg!(feature = "combobox-ex") {
             classes |= ICC_USEREX_CLASSES;
+        }
+
+        if cfg!(feature = "hot-key") {
+            classes |= ICC_HOTKEY_CLASS;
         }
 
         if cfg!(feature = "rich-textbox") {
