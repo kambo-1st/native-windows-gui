@@ -558,7 +558,7 @@ unsafe extern "system" fn process_events(hwnd: HWND, msg: UINT, w: WPARAM, l: LP
     use std::char;
     use crate::events::*;
 
-    use winapi::um::commctrl::{DefSubclassProc, TTN_GETDISPINFOW};
+    use winapi::um::commctrl::{DefSubclassProc, TTN_GETDISPINFOW, PGN_CALCSIZE, NMPGCALCSIZE, PGF_CALCWIDTH, PGF_CALCHEIGHT};
     use winapi::um::winuser::{GetClassNameW, GetMenuItemID, GetSubMenu};
     use winapi::um::winuser::{WM_CLOSE, WM_COMMAND, WM_MENUCOMMAND, WM_TIMER, WM_NOTIFY, WM_HSCROLL, WM_VSCROLL, WM_LBUTTONDOWN, WM_LBUTTONUP,
       WM_RBUTTONDOWN, WM_RBUTTONUP, WM_SIZE, WM_MOVE, WM_PAINT, WM_MOUSEMOVE, WM_CONTEXTMENU, WM_INITMENUPOPUP, WM_MENUSELECT, WM_EXITSIZEMOVE,
@@ -603,6 +603,7 @@ unsafe extern "system" fn process_events(hwnd: HWND, msg: UINT, w: WPARAM, l: LP
         
             match code {
                 TTN_GETDISPINFOW => handle_tooltip_callback(mem::transmute::<_, *mut NMTTDISPINFOW>(l), callback),
+                PGN_CALCSIZE => handle_pager_calcsize(mem::transmute::<_, *mut NMPGCALCSIZE>(l)),
                 _ => handle_default_notify_callback(mem::transmute::<_, *const NMHDR>(l), callback)
             }
         },
@@ -1006,6 +1007,15 @@ fn hotkey_commands(m: u16) -> Event {
     }
 }
 
+fn pager_commands(m: u32) -> Event {
+    use winapi::um::commctrl::PGN_SCROLL;
+
+    match m {
+        PGN_SCROLL => Event::OnPagerScroll,
+        _ => Event::Unknown
+    }
+}
+
 #[cfg(feature="syslink")]
 fn syslink_data(m: u32, notif_raw: *const NMHDR) -> EventData {
     use winapi::um::commctrl::{NM_CLICK, NM_RETURN, NMLINK};
@@ -1079,6 +1089,37 @@ unsafe fn handle_tooltip_callback<'a>(notif: *mut NMTTDISPINFOW, callback: &Call
     callback(Event::OnTooltipText, data, handle);
 }
 
+/// Handle PGN_CALCSIZE notification for pager control
+/// This tells the pager how big its child control wants to be
+unsafe fn handle_pager_calcsize(notif: *mut winapi::um::commctrl::NMPGCALCSIZE) {
+    use winapi::um::winuser::{GetWindowRect, GetWindow, GW_CHILD};
+    use winapi::shared::windef::RECT;
+    use winapi::um::commctrl::{PGF_CALCWIDTH, PGF_CALCHEIGHT, NMPGCALCSIZE};
+
+    let notif = &mut *notif;
+    let pager_hwnd = notif.hdr.hwndFrom;
+
+    // Get the child window of the pager
+    let child_hwnd = GetWindow(pager_hwnd, GW_CHILD);
+    if child_hwnd.is_null() {
+        return;
+    }
+
+    // Get the child's current size
+    let mut rect: RECT = mem::zeroed();
+    GetWindowRect(child_hwnd, &mut rect);
+
+    let child_width = rect.right - rect.left;
+    let child_height = rect.bottom - rect.top;
+
+    // Fill in the requested dimension
+    if notif.dwFlag == PGF_CALCWIDTH {
+        notif.iWidth = child_width;
+    } else if notif.dwFlag == PGF_CALCHEIGHT {
+        notif.iHeight = child_height;
+    }
+}
+
 unsafe fn handle_default_notify_callback<'a>(notif_raw: *const NMHDR, callback: &Callback){
     use winapi::um::winnt::WCHAR;
     use winapi::um::winuser::GetClassNameW;
@@ -1100,6 +1141,7 @@ unsafe fn handle_default_notify_callback<'a>(notif_raw: *const NMHDR, callback: 
         winapi::um::commctrl::WC_LISTVIEW => callback(list_view_commands(code), list_view_data(code, notif_raw), handle),
         "SysLink" => callback(syslink_commands(code), syslink_data(code, notif_raw), handle),
         "SysIPAddress32" => callback(ipaddress_commands(code), NO_DATA, handle),
+        "SysPager" => callback(pager_commands(code), NO_DATA, handle),
         _ => {}
     }
 }

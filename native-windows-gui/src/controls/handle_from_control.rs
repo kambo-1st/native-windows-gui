@@ -318,3 +318,9 @@ use super::HotKey;
 
 #[cfg(feature = "hot-key")]
 handles!(HotKey);
+
+#[cfg(feature = "pager")]
+use super::Pager;
+
+#[cfg(feature = "pager")]
+handles!(Pager);

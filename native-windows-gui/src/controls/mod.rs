@@ -107,6 +107,9 @@ mod ip_address;
 #[cfg(feature = "hot-key")]
 mod hot_key;
 
+#[cfg(feature = "pager")]
+mod pager;
+
 mod handle_from_control;
 
 pub use control_handle::ControlHandle;
@@ -225,5 +228,8 @@ pub use ip_address::{IpAddress, IpAddressBuilder, IpAddressFlags};
 
 #[cfg(feature = "hot-key")]
 pub use hot_key::{HotKey, HotKeyBuilder, HotKeyFlags, HotKeyModifiers, HotKeyValue, HotKeyInvalidCombinations};
+
+#[cfg(feature = "pager")]
+pub use pager::{Pager, PagerBuilder, PagerFlags, PagerButton, PagerButtonState};
 
 pub use handle_from_control::*;

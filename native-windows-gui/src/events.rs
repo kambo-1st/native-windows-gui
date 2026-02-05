@@ -296,6 +296,9 @@ pub enum Event {
 
     /// When the hot key value changes in a HotKey control
     OnHotKeyChanged,
+
+    /// When the pager control scrolls
+    OnPagerScroll,
 }
 
 
