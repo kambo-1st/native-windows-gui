@@ -15,7 +15,7 @@ use nwg::NativeUi;
 
 #[derive(Default, NwgUi)]
 pub struct PagerExample {
-    #[nwg_control(size: (400, 150), position: (300, 300), title: "Pager Example", flags: "WINDOW|VISIBLE")]
+    #[nwg_control(size: (400, 180), position: (300, 300), title: "Pager Example", flags: "WINDOW|VISIBLE")]
     #[nwg_events(OnWindowClose: [PagerExample::exit], OnInit: [PagerExample::on_init])]
     window: nwg::Window,
 
@@ -25,7 +25,7 @@ pub struct PagerExample {
     // Horizontal pager - smaller than the toolbar it contains
     #[nwg_control(
         position: (10, 35),
-        size: (200, 30),
+        size: (200, 50),
         flags: "VISIBLE|HORIZONTAL"
     )]
     #[nwg_events(OnPagerScroll: [PagerExample::on_scroll])]
@@ -33,39 +33,40 @@ pub struct PagerExample {
 
     // Toolbar that will be contained in the pager
     // Note: parent is the pager, not the window
+    // LIST shows text on buttons, NORESIZE prevents auto-sizing to parent
     #[nwg_control(
         parent: pager,
-        size: (400, 30),
-        flags: "VISIBLE"
+        size: (500, 50),
+        flags: "VISIBLE|LIST|NORESIZE"
     )]
     toolbar: nwg::Toolbar,
 
-    #[nwg_control(text: "Scroll pos: 0", position: (220, 35), size: (100, 25))]
+    #[nwg_control(text: "Scroll pos: 0", position: (220, 50), size: (100, 25))]
     pos_label: nwg::Label,
 
-    #[nwg_control(text: "Button Size:", position: (10, 80), size: (80, 20))]
+    #[nwg_control(text: "Button Size:", position: (10, 100), size: (80, 20))]
     label2: nwg::Label,
 
-    #[nwg_control(text: "12", position: (90, 78), size: (40, 23))]
+    #[nwg_control(text: "12", position: (90, 98), size: (40, 25))]
     btn_size_input: nwg::TextInput,
 
-    #[nwg_control(text: "Set", position: (135, 78), size: (40, 23))]
+    #[nwg_control(text: "Set", position: (135, 98), size: (40, 25))]
     #[nwg_events(OnButtonClick: [PagerExample::set_button_size])]
     set_btn_size: nwg::Button,
 
-    #[nwg_control(text: "Recalc", position: (180, 78), size: (60, 23))]
+    #[nwg_control(text: "Recalc", position: (180, 98), size: (60, 25))]
     #[nwg_events(OnButtonClick: [PagerExample::recalc])]
     recalc_btn: nwg::Button,
 
-    #[nwg_control(text: "Scroll to 0", position: (250, 78), size: (70, 23))]
+    #[nwg_control(text: "Scroll to 0", position: (250, 98), size: (70, 25))]
     #[nwg_events(OnButtonClick: [PagerExample::scroll_start])]
     scroll_start_btn: nwg::Button,
 
-    #[nwg_control(text: "Scroll to 100", position: (325, 78), size: (70, 23))]
+    #[nwg_control(text: "Scroll to 100", position: (325, 98), size: (70, 25))]
     #[nwg_events(OnButtonClick: [PagerExample::scroll_end])]
     scroll_end_btn: nwg::Button,
 
-    #[nwg_control(text: "Status: Ready", position: (10, 115), size: (380, 25))]
+    #[nwg_control(text: "Status: Ready", position: (10, 140), size: (380, 25))]
     status_label: nwg::Label,
 }
 
@@ -121,6 +122,9 @@ impl PagerExample {
             style: nwg::ToolbarButtonStyle::Button,
             enabled: true,
         });
+
+        // Make toolbar auto-size to fit all buttons
+        self.toolbar.auto_size();
 
         // Set the toolbar as the pager's child
         self.pager.set_child(Some(&self.toolbar));
