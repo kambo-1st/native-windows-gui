@@ -290,6 +290,9 @@ pub enum Event {
 
     /// When an animation stops playing
     OnAnimationStop,
+
+    /// When a field in an IP address control changes
+    OnIpAddressFieldChanged,
 }
 
 

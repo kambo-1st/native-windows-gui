@@ -306,3 +306,9 @@ use super::ComboBoxEx;
 
 #[cfg(feature = "combobox-ex")]
 handles!(ComboBoxEx);
+
+#[cfg(feature = "ip-address")]
+use super::IpAddress;
+
+#[cfg(feature = "ip-address")]
+handles!(IpAddress);

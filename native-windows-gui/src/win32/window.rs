@@ -987,6 +987,15 @@ fn syslink_commands(m: u32) -> Event {
     }
 }
 
+fn ipaddress_commands(m: u32) -> Event {
+    use winapi::um::commctrl::IPN_FIELDCHANGED;
+
+    match m {
+        IPN_FIELDCHANGED => Event::OnIpAddressFieldChanged,
+        _ => Event::Unknown
+    }
+}
+
 #[cfg(feature="syslink")]
 fn syslink_data(m: u32, notif_raw: *const NMHDR) -> EventData {
     use winapi::um::commctrl::{NM_CLICK, NM_RETURN, NMLINK};
@@ -1080,6 +1089,7 @@ unsafe fn handle_default_notify_callback<'a>(notif_raw: *const NMHDR, callback: 
         winapi::um::commctrl::WC_TREEVIEW => callback(tree_commands(code), tree_data(code, notif_raw), handle),
         winapi::um::commctrl::WC_LISTVIEW => callback(list_view_commands(code), list_view_data(code, notif_raw), handle),
         "SysLink" => callback(syslink_commands(code), syslink_data(code, notif_raw), handle),
+        "SysIPAddress32" => callback(ipaddress_commands(code), NO_DATA, handle),
         _ => {}
     }
 }
